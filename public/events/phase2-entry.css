@@ -1,0 +1,11 @@
+.ac-choice-eb05{position:relative;isolation:isolate;background:radial-gradient(ellipse at 85% 25%,#7764e944,transparent 60%),linear-gradient(115deg,#29294e,#352c65);border-color:#9988e877;overflow:hidden}
+.ac-choice-eb05 .ac-choice-copy{max-width:70%;position:relative;z-index:2}
+.ac-choice-eb05 .ac-choice-copy>small{color:#c5b4ff}
+.ac-choice-eb05 .ac-choice-copy>strong{font-size:24px;letter-spacing:-.5px}
+.ac-choice-eb05 .ac-choice-copy>span{font-size:12px}
+.eb05-entry-art{position:absolute;inset:0 0 0 auto;width:36%;pointer-events:none}
+.eb05-entry-art i{position:absolute;width:160px;height:160px;border:1px solid #b1a0ff33;border-radius:50%;right:-20px;top:15px;box-shadow:0 0 35px #8b66f822,inset 0 0 25px #8b66f822}
+.eb05-entry-art img{position:absolute;width:78px;right:38px;top:42px;transform:rotate(-18deg);border-radius:9px;box-shadow:0 12px 20px #08082188}
+.eb05-entry-art img+img{right:14px;top:32px;transform:rotate(12deg)}
+.eb05-entry-art em{position:absolute;right:25px;bottom:24px;color:#e5dcff;font:600 12px/1.4 ui-monospace,monospace;letter-spacing:3px}
+@media(max-width:350px){.ac-choice-eb05 .ac-choice-copy>strong{font-size:21px}.ac-choice-eb05 .ac-choice-copy>span{max-width:150px;line-height:1.7}.eb05-entry-art{opacity:.65}.eb05-entry-art img{right:24px;width:65px}.eb05-entry-art img+img{right:5px}}

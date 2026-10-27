@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <defs>
+    <linearGradient id="crystal" x1="46" y1="34" x2="210" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8E5FF"/><stop offset=".32" stop-color="#9FDFFF"/><stop offset=".66" stop-color="#A98BFF"/><stop offset="1" stop-color="#F1A9E8"/>
+    </linearGradient>
+    <linearGradient id="core" x1="91" y1="70" x2="170" y2="187" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F7FF"/><stop offset=".34" stop-color="#BFEAFF"/><stop offset=".72" stop-color="#8B72FF"/><stop offset="1" stop-color="#D48CF1"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientTransform="translate(128 128) rotate(90) scale(91)">
+      <stop stop-color="#786BFF" stop-opacity=".42"/><stop offset=".58" stop-color="#5FD9FF" stop-opacity=".1"/><stop offset="1" stop-color="#8C6FFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-28" y="-28" width="312" height="312" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <circle cx="128" cy="128" r="106" fill="url(#halo)"/>
+  <circle cx="128" cy="128" r="89" stroke="url(#crystal)" stroke-opacity=".42" stroke-width="2" stroke-dasharray="3 10"/>
+  <path d="M128 24L149 76L200 56L180 107L232 128L180 149L200 200L149 180L128 232L107 180L56 200L76 149L24 128L76 107L56 56L107 76L128 24Z" stroke="url(#crystal)" stroke-opacity=".55" stroke-width="2"/>
+  <path d="M128 49C139 83 148 108 180 128C148 148 139 173 128 207C117 173 108 148 76 128C108 108 117 83 128 49Z" fill="url(#core)" filter="url(#glow)"/>
+  <path d="M128 67C134 101 143 119 163 128C143 137 134 155 128 189C122 155 113 137 93 128C113 119 122 101 128 67Z" fill="#F8F7FF" fill-opacity=".62"/>
+  <path d="M82 84L91 106L113 115L91 124L82 146L73 124L51 115L73 106L82 84Z" fill="#74DFFF" fill-opacity=".88"/>
+  <path d="M185 105L191 120L206 126L191 132L185 147L179 132L164 126L179 120L185 105Z" fill="#EBA6E3" fill-opacity=".9"/>
+  <circle cx="128" cy="128" r="9" fill="#FFFFFF"/>
+</svg>
