@@ -1,0 +1,21 @@
+@import url('original-sidebar.css');
+
+/* Original Tailwind preflight, scoped to the drawer to leave the homepage untouched. */
+.app-drawer-layer { font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif; font-size:16px; line-height:1.5; color:#f5f3ff; }
+:where(.app-drawer-layer *, .app-drawer-layer ::before, .app-drawer-layer ::after) { box-sizing:border-box; margin:0; padding:0; border:0 solid; }
+:where(.app-drawer-layer button) { font:inherit; color:inherit; background:transparent; cursor:pointer; }
+:where(.app-drawer-layer svg,.app-drawer-layer img) { display:block; vertical-align:middle; }
+:where(.app-drawer-layer img) { max-width:100%; height:auto; }
+:where(.app-drawer-layer b,.app-drawer-layer strong) { font-weight:bolder; }
+.app-drawer-layer :where(button:focus-visible,a:focus-visible) { outline:2px solid #83dfff; outline-offset:2px; }
+.app-drawer-layer :where(a) { color:inherit; text-decoration:none; }
+.app-drawer-layer :where([hidden]) { display:none!important; }
+
+/* The only layout addition: a third service tile to the right of 商品订单. */
+.app-drawer .drawer-shortcuts.two-columns.has-lottery { grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; }
+.app-drawer .drawer-shortcuts.two-columns.has-lottery .drawer-shortcut { grid-template-columns:1fr; grid-template-rows:30px auto; justify-items:center; gap:6px; padding:8px 2px; text-align:center; }
+.app-drawer .drawer-shortcuts.two-columns.has-lottery .drawer-shortcut b { overflow:visible; text-overflow:clip; }
+.app-drawer .drawer-shortcut.drawer-lottery-entry>span { border-color:#8e7dff55; background:#6d58ef1d; color:#b5a9ff; }
+
+#cl-toast{position:fixed;z-index:10000;left:50%;bottom:100px;transform:translateX(-50%);width:max-content;max-width:min(330px,90vw);font:11px/1.8 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#eee4fc;background:#29223bef;border:1px solid #ab8bd260;padding:11px 16px;border-radius:11px;box-shadow:0 8px 40px #0005;pointer-events:none;text-align:center}
+#cl-toast[hidden]{display:none}

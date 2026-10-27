@@ -1,0 +1,24 @@
+/* 图灵鉴 X / Spectral Indigo. Source: home spectral + skin commerce. */
+:root {
+  --jx-ink: #f5f3ff;
+  --jx-text: #ccd0e7;
+  --jx-muted: #afb7d6;
+  --jx-soft: #96a1c6;
+  --jx-purple: #9d8bff;
+  --jx-cyan: #6ddfff;
+  --jx-gold: #f4d286;
+  --jx-error: #ffc0ad;
+  --jx-border: #a599e957;
+  --jx-border-strong: #aaa0f095;
+  --jx-divider: #a4a5da2d;
+  --jx-primary: linear-gradient(112deg,#6a62ed,#865fe4);
+  --jx-gold-button: linear-gradient(110deg,#f3db9f,#e5bd6d);
+  --jx-surface: linear-gradient(145deg,#272c50,#202442);
+  --jx-surface-soft: linear-gradient(145deg,#262a49,#222641);
+  --jx-surface-reward: linear-gradient(145deg,#302b55,#262243);
+  --jx-surface-dialog: linear-gradient(160deg,#303055,#232541);
+  --jx-page: linear-gradient(180deg,#171a36,#191d3b);
+  --jx-panel-shadow: inset 0 1px 1px #cdd7ff30,0 8px 22px #05071935;
+  --jx-action-shadow: inset 0 1px 0 #e2dbff66,0 8px 24px #7955e345;
+  --jx-font: -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+}

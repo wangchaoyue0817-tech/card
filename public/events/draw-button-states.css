@@ -1,0 +1,36 @@
+/* Availability is the visual priority for both draw amounts, across entry points. */
+.ev-dialog .ev-hub-draw-controls .draw-state-button,
+.ac-draw-actions .draw-state-button,
+.center-wallet .cl-draw-buttons>button{
+ transition:background .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+.ev-dialog .ev-hub-draw-controls .draw-state-button:not(:disabled),
+.ac-draw-actions .draw-state-button:not(:disabled),
+.center-wallet .cl-draw-buttons>button:not(:disabled){
+ color:#fff;border:1px solid #d6bdff;
+ background:linear-gradient(110deg,#6456f5,#854de8 58%,#ae58d6);
+ box-shadow:inset 0 1px #f6eaff88,0 5px 20px #9563f34a;
+ opacity:1;cursor:pointer;
+}
+.ev-dialog .ev-hub-draw-controls .draw-state-button:disabled,
+.ac-draw-actions .draw-state-button:disabled,
+.center-wallet .cl-draw-buttons>button:disabled{
+ color:#a69abd;border:1px solid #78699470;background:#393154;
+ box-shadow:none;opacity:1;cursor:not-allowed;transform:none;filter:none;
+}
+.ev-hub-draw-controls .draw-state-button small,
+.ac-draw-actions .draw-state-button small,
+.center-wallet .cl-draw-buttons>button small{opacity:1;color:inherit}
+.ev-hub-draw-controls .draw-state-button:not(:disabled):active,
+.ac-draw-actions .draw-state-button:not(:disabled):active,
+.center-wallet .cl-draw-buttons>button:not(:disabled):active{transform:translateY(1px)}
+@media(hover:hover){
+ .ev-dialog .ev-hub-draw-controls .draw-state-button:not(:disabled):hover,
+ .ac-draw-actions .draw-state-button:not(:disabled):hover,
+ .center-wallet .cl-draw-buttons>button:not(:disabled):hover{
+  border-color:#f0dfff;box-shadow:inset 0 1px #fff9,0 6px 24px #a575f663;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .ev-hub-draw-controls .draw-state-button,.ac-draw-actions .draw-state-button,.center-wallet .cl-draw-buttons>button{transition:none}
+}

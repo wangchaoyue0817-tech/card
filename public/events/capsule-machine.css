@@ -1,0 +1,85 @@
+/* 图灵鉴X activity machine v4: lavender ceramic and amethyst glass, matched to the expert hero.
+   The generated cabinet is one visual layer. Balls, glass, crank and hatch stay live. */
+.gm-machine {
+  --gm-violet:#7b55ea; --gm-blue:#6860c9; --gm-rose:#be8bc9;
+  --gm-accent:#b59af0; --gm-highlight:#f1eaff;
+  position:relative; isolation:isolate; width:100%; max-width:360px;
+  aspect-ratio:5 / 4; margin:0 auto; color:#f6f0ff;
+  font-family:var(--jx-font,"PingFang SC",sans-serif); contain:layout style;
+}
+.gm-machine--compact { max-width:330px; }
+.gm-machine *, .gm-machine *::before, .gm-machine *::after { box-sizing:border-box; }
+.gm-machine[data-pool="premium"] { --gm-accent:#ffd36b; --gm-highlight:#fff1c9; }
+.gm-prize-art { display:block; width:100%; height:100%; user-select:none; }
+.gm-prize-art > img { display:block; width:100%; height:100%; object-fit:contain; }
+.gm-prize-art--sprite-ready { background-image:url("assets/gacha/prizes-sheet.png"); background-size:400% 200%; background-position:var(--gm-sprite-x) var(--gm-sprite-y); background-repeat:no-repeat; }
+.gm-prize-art--sprite-ready > img { visibility:hidden; }
+.gm-aura { position:absolute; inset:8% 4% 4%; z-index:-2; background:radial-gradient(ellipse at 50% 50%,#b194ea10,transparent 68%); }
+.gm-floor { position:absolute; left:12%; right:12%; bottom:-1%; height:6%; border-radius:50%; background:radial-gradient(ellipse,#4b376a50 0,#63508d26 48%,transparent 72%); filter:blur(3px); }
+.gm-device { position:absolute; inset:0; }
+.gm-body-art { position:absolute; z-index:2; inset:0; display:block; width:100%; height:100%; object-fit:contain; pointer-events:none; user-select:none; }
+/* Coordinates refer to the complete, transparently padded cabinet asset. */
+.gm-chamber { position:absolute; z-index:3; left:15%; right:15%; top:19%; height:41.5%; border-radius:12% 12% 9% 9% / 25% 25% 16% 16%; overflow:hidden; }
+.gm-balls { position:absolute; inset:0; perspective:500px; }
+.gm-ball { --gm-ball-color:#7b55ea; --gm-ball-mid:#b49aea; --gm-ball-light:#eee6ff; position:absolute; left:var(--gm-x); top:var(--gm-y); width:var(--gm-size); aspect-ratio:1; animation:gm-float var(--gm-drift) ease-in-out var(--gm-delay) infinite; filter:drop-shadow(0 3px 2px #58467530); }
+.gm-ball--blue { --gm-ball-color:#6860c9; --gm-ball-mid:#a4a0e4; --gm-ball-light:#e9e8ff; }
+.gm-ball--cyan { --gm-ball-color:#8e7cae; --gm-ball-mid:#c3b6e2; --gm-ball-light:#f3edff; }
+.gm-ball--lilac { --gm-ball-color:#a06baf; --gm-ball-mid:#d7acd9; --gm-ball-light:#f7e7fa; }
+.gm-ball--mint { --gm-ball-color:#9672bd; --gm-ball-mid:#c4a6df; --gm-ball-light:#f0e7ff; }
+.gm-ball--gold { --gm-ball-color:#c6a776; --gm-ball-mid:#e3cb9d; --gm-ball-light:#fff0d6; }
+.gm-ball-shell { position:relative; width:100%; height:100%; border-radius:50%; overflow:hidden; transform:rotate(var(--gm-turn)); border:1px solid #f4edffbd; background:radial-gradient(circle at 31% 18%,#ffffffce,#e7d9ff30 34%,#d2c3ec24 55%,#e7d9ff95 83%,#b49bdca0); box-shadow:inset 2px 2px 3px #ffffffb3,inset -2px -3px 4px #8871b450; }
+.gm-ball-back { position:absolute; inset:0; border-radius:50%; background:radial-gradient(ellipse at 40% 26%,#ffffff1a 20%,#b59aca1a 61%,#f0e8ff7a); }
+.gm-ball .gm-prize-art { position:absolute; z-index:1; width:82%; height:82%; left:9%; top:1%; transform:rotate(calc(var(--gm-turn) * -1)); filter:drop-shadow(0 2px 2px #48335d50); }
+.gm-ball-bottom { position:absolute; z-index:2; inset:59% -4% -2%; border-radius:0 0 60% 60%; background:radial-gradient(ellipse at 34% 4%,var(--gm-ball-light) 0,var(--gm-ball-mid) 34%,var(--gm-ball-color) 87%); box-shadow:inset 2px 1px 3px #ffffffa8,inset 0 -3px 4px #44306a20; }
+.gm-ball-seam { position:absolute; z-index:3; left:-5%; right:-5%; height:16%; top:51%; border-radius:50%; border-bottom:2px solid var(--gm-ball-light); border-top:1px solid #ffffff70; background:linear-gradient(transparent,#f0e6ff26); box-shadow:0 1px 2px #725ba430; }
+.gm-ball-glint { position:absolute; z-index:4; left:10%; top:8%; width:34%; height:21%; background:linear-gradient(135deg,#ffffffed,#e8eaff07); border-radius:70% 20% 80% 20%; transform:rotate(-24deg); }
+.gm-ball-core { position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 32% 24%,var(--gm-ball-light),var(--gm-ball-mid) 40%,var(--gm-ball-color) 85%); }
+.gm-glass { position:absolute; z-index:5; inset:0; border-radius:inherit; pointer-events:none; background:linear-gradient(106deg,#f0e7ff20 2%,transparent 10%,transparent 17%,#eadcff05 18%,#f5edff10 24%,transparent 25%,transparent 84%,#e2cfff24 95%,#e7d5ff38); }
+.gm-glass::before { content:""; position:absolute; left:4%; top:13%; bottom:16%; width:1%; background:linear-gradient(transparent,#f5eaffb3,transparent); border-radius:50%; }
+.gm-chamber-floor { position:absolute; bottom:-10%; height:15%; left:5%; right:5%; border-radius:50%; background:radial-gradient(ellipse,#e1cfff42,#b093d31a 65%,transparent 75%); }
+.gm-marquee { position:absolute; z-index:5; left:34%; right:34%; top:3.2%; height:7%; display:flex; align-items:center; justify-content:center; }
+.gm-pool-title { color:#ece4ff; font-size:clamp(13px,3.7vw,15px); font-weight:750; letter-spacing:1px; line-height:1; white-space:nowrap; text-shadow:0 1px 3px #22143c70; }
+/* The prizes live in the glass chamber; no second row of tiny product icons. */
+.gm-showcase { display:none; }
+.gm-dial { position:absolute; z-index:5; left:59.2%; top:68.1%; width:18.4%; height:23%; border-radius:50%; pointer-events:none; }
+/* Reuse the exact circular knob crop so its violet handle really turns, with no
+   second illustration or mismatched light source over the generated cabinet. */
+.gm-dial-ring { position:absolute; inset:0; border-radius:50%; background-image:url("assets/gacha/machine-body-v4.png"); background-size:543.478% 434.783%; background-position:72.549% 88.442%; }
+.gm-dial-handle { position:absolute; inset:-3%; border-radius:50%; background:conic-gradient(from 20deg,transparent 73%,#b99fff00 78%,#9578e1 95%,#ddc9ff 99%,transparent); mask:radial-gradient(circle,transparent 63%,#000 65%,#000 69%,transparent 71%); opacity:0; }
+.gm-dial-center { position:absolute; left:47%; top:47%; width:6%; aspect-ratio:1; border-radius:50%; background:#f0e5ff; box-shadow:0 0 5px #ad8ce2; opacity:0; }
+.gm-delivery { position:absolute; z-index:5; left:26.5%; top:70.2%; width:20%; height:18%; border-radius:20%; overflow:hidden; }
+.gm-door { display:none; }
+.gm-delivery-light { position:absolute; left:12%; right:12%; bottom:6%; height:2px; border-radius:50%; background:var(--gm-accent); box-shadow:0 -2px 10px var(--gm-accent); opacity:0; }
+.gm-dispensed { position:absolute; inset:0 2% 6%; display:flex; align-items:end; justify-content:center; gap:1%; }
+.gm-drop-ball { position:relative; flex:0 0 18%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle at 30% 20%,#fff,#ece2fa 35%,#baa7d4 75%,#f5ebff); border:1px solid #e4d6f5; opacity:0; transform:translateY(-180%); box-shadow:0 2px 3px #4c376850; overflow:hidden; }
+.gm-drop-ball i { position:absolute; inset:52% -2% -2%; border-radius:0 0 50% 50%; background:linear-gradient(140deg,#dfb4ff,#7b55ea 60%,#b1b9ff); border-top:1px solid #f3d4ff; }
+.gm-drop-ball--1 i { background:linear-gradient(140deg,#ded5fa,#6860c9 70%,#b8bdff); }
+.gm-drop-ball--2 i { background:linear-gradient(140deg,#edd5ed,#be8bc9 70%,#eeb5ff); }
+.gm-drop-ball--3 i { background:linear-gradient(140deg,#e9dbf3,#957caf 70%,#d3bde1); }
+.gm-drop-ball--4 i { background:linear-gradient(140deg,#fff1bf,#c3a06b 70%,#f3dba2); }
+.gm-live { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.gm-machine[data-count="1"] .gm-drop-ball { display:none; }
+.gm-machine[data-count="1"] .gm-drop-ball:first-child { display:block; flex-basis:23%; }
+.gm-machine[data-phase="spinning"] .gm-ball { animation:gm-tumble-one .74s ease-in-out calc(var(--gm-i) * -71ms) infinite alternate; }
+.gm-machine[data-phase="spinning"][data-count="5"] .gm-ball { animation:gm-tumble-five .58s cubic-bezier(.45,.03,.48,1) calc(var(--gm-i) * -53ms) infinite alternate; }
+.gm-machine[data-phase="spinning"] .gm-dial-handle { opacity:1; animation:gm-turn 1.05s cubic-bezier(.3,.1,.3,1) infinite; }
+.gm-machine[data-phase="spinning"] .gm-dial-ring { animation:gm-knob-one 1.65s cubic-bezier(.2,.5,.3,1) both; }
+.gm-machine[data-phase="spinning"] .gm-dial-center { opacity:1; }
+.gm-machine[data-phase="spinning"][data-count="5"] .gm-dial-handle { animation-duration:.72s; }
+.gm-machine[data-phase="spinning"][data-count="5"] .gm-dial-ring { animation-name:gm-knob-five; animation-duration:2.95s; }
+.gm-machine[data-phase="spinning"][data-count="5"] .gm-device { animation:gm-machine-sway .36s ease-in-out infinite alternate; }
+.gm-machine[data-phase="dropping"] .gm-door,.gm-machine[data-phase="revealed"] .gm-door { transform:perspective(100px) rotateX(68deg); opacity:.3; }
+.gm-machine[data-phase="dropping"] .gm-delivery-light,.gm-machine[data-phase="revealed"] .gm-delivery-light { opacity:1; }
+.gm-machine[data-phase="dropping"] .gm-drop-ball { animation:gm-drop .55s cubic-bezier(.2,.5,.7,1.1) calc(var(--gm-drop-i) * 120ms) forwards; }
+.gm-machine[data-phase="revealed"] .gm-drop-ball { opacity:1; transform:translateY(0); box-shadow:0 0 8px #d0b4ff60; }
+.gm-machine[data-phase="revealed"] .gm-pool-title { color:#f3e8ff; }
+.gm-machine[data-phase="destroyed"] * { animation:none !important; transition:none !important; }
+@keyframes gm-float { 0%,100% { transform:translate3d(0,0,0) rotate(-3deg); } 33% { transform:translate3d(3px,-3px,0) rotate(1deg); } 66% { transform:translate3d(-1px,-6px,0) rotate(4deg); } }
+@keyframes gm-tumble-one { 0% { transform:translate3d(-4px,2px,0) rotate(-10deg); } 50% { transform:translate3d(3px,-9px,0) rotate(11deg); } 100% { transform:translate3d(5px,-3px,0) rotate(24deg); } }
+@keyframes gm-tumble-five { 0% { transform:translate3d(-8px,5px,0) rotate(-20deg); } 45% { transform:translate3d(6px,-15px,0) rotate(25deg); } 100% { transform:translate3d(10px,-4px,0) rotate(47deg); } }
+@keyframes gm-turn { from { transform:rotate(-35deg); } to { transform:rotate(325deg); } }
+@keyframes gm-knob-one { from { transform:rotate(0); } to { transform:rotate(360deg); } }
+@keyframes gm-knob-five { from { transform:rotate(0); } to { transform:rotate(720deg); } }
+@keyframes gm-machine-sway { from { transform:rotate(-.4deg); } to { transform:rotate(.4deg); } }
+@keyframes gm-drop { 0% { opacity:0; transform:translateY(-170%) rotate(-60deg); } 35% { opacity:1; } 75% { transform:translateY(0) rotate(8deg); } 88% { transform:translateY(-16%) rotate(-4deg); } 100% { opacity:1; transform:translateY(0) rotate(0); } }
+@media (prefers-reduced-motion:reduce) { .gm-machine *, .gm-machine *::before, .gm-machine *::after { animation:none !important; transition:none !important; }.gm-machine[data-phase="dropping"] .gm-drop-ball { opacity:1; transform:none; } }

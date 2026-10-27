@@ -1,0 +1,26 @@
+/* One inline ticket wallet for both Double 11 pools. */
+.et-tickets{margin-top:24px;padding-top:18px;border-top:1px solid #b4a5ec24}
+.et-ticket-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.et-ticket-heading h3{margin:0;font-size:16px;line-height:1.4;font-weight:600;color:#f3edff}
+.et-ticket-heading button{min-height:44px;padding:0 2px 0 12px;border:0;background:none;color:#c4b7e4;font-size:12px}
+.et-ticket-states{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.et-ticket-states button{display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:9px 6px;border:1px solid #c1b0ec2e;border-radius:12px;background:#28254d;color:#c4badb;font-size:12px;white-space:nowrap}
+.et-ticket-states button b{display:grid;place-items:center;min-width:23px;height:23px;padding:0 5px;box-sizing:border-box;border-radius:20px;background:#b4a0e716;color:#d1c6e9;font-weight:500;font-variant-numeric:tabular-nums}
+.et-ticket-states button[aria-pressed=true]{border-color:#be9aff8c;background:linear-gradient(120deg,#59408c88,#44336782);color:#f5edff;box-shadow:inset 0 1px #edddff1f}
+.et-ticket-states button[aria-pressed=true] b{background:#ba97f326;color:#f4e7ff}
+.et-ticket-list{display:grid;gap:9px}
+.et-ticket-row{display:flex;align-items:center;gap:10px;padding:13px 11px 13px 7px;border:1px solid #c1a8ef29;border-radius:15px;background:linear-gradient(112deg,#342b5d66,#28234746)}
+.et-ticket-art{width:56px;flex:none}
+.et-ticket-art .ev-reward-art{width:56px;height:40px}
+.et-ticket-copy{flex:1;min-width:0}
+.et-ticket-copy h4{margin:0;font-size:13px;font-weight:550;line-height:1.4;color:#eee5ff}
+.et-ticket-copy p{margin:5px 0 3px;color:#c4b7da;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.et-ticket-copy small{display:block;color:#b9abd1;font-size:11px;line-height:1.6}
+.et-ticket-amount{flex:none;font-size:10px;color:#bdafd5;white-space:nowrap}
+.et-ticket-amount b{font-size:21px;font-weight:500;line-height:1;color:#e8d6ff;font-variant-numeric:tabular-nums}
+.et-ticket-row.is-used .et-ticket-art,.et-ticket-row.is-expired .et-ticket-art{filter:grayscale(1);opacity:.57}
+.et-ticket-row.is-used .et-ticket-amount b,.et-ticket-row.is-expired .et-ticket-amount b{color:#c3b5d8}
+.et-empty{display:grid;justify-items:center;gap:7px;padding:24px 8px 22px}
+.et-empty .ev-reward-art{width:72px;height:42px;opacity:.65;filter:saturate(.5)}
+.et-empty p{margin:0;color:#c3b7db;font-size:12px;line-height:1.6}
+@media(max-width:350px){.et-ticket-states{gap:5px}.et-ticket-states button{gap:5px;padding-left:4px;padding-right:4px}.et-ticket-art,.et-ticket-art .ev-reward-art{width:45px}.et-ticket-row{gap:8px;padding-right:9px}}

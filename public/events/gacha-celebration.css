@@ -1,0 +1,81 @@
+/* Transparent, transient decoration: the dialog's own indigo surface stays visible. */
+.gacha-celebration-host { isolation: isolate; }
+.gacha-celebration {
+  --gacha-effect-halo: 188, 145, 255;
+  position: absolute;
+  z-index: 8;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  user-select: none;
+  contain: paint;
+}
+.gacha-celebration[data-tier="advanced"],
+.gacha-celebration[data-tier="physical"] { --gacha-effect-halo: 255, 217, 151; }
+.gacha-celebration-glow {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  width: 280px;
+  max-width: 92%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(var(--gacha-effect-halo), .15), rgba(var(--gacha-effect-halo), .045) 39%, transparent 67%);
+  opacity: 0;
+  transform: translateX(-50%) scale(.62);
+  animation: gacha-reward-bloom var(--gacha-effect-duration) cubic-bezier(.2,.7,.25,1) both;
+}
+.gacha-celebration-glow::after {
+  content: "";
+  position: absolute;
+  inset: 23%;
+  border: 1px solid rgba(var(--gacha-effect-halo), .25);
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(var(--gacha-effect-halo), .07), inset 0 0 16px rgba(var(--gacha-effect-halo), .04);
+}
+.gacha-celebration[data-tier="advanced"] .gacha-celebration-glow::before,
+.gacha-celebration[data-tier="physical"] .gacha-celebration-glow::before {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--gacha-effect-halo), .13);
+}
+.gacha-celebration-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.gacha-celebration-gleam {
+  position: absolute;
+  left: var(--gleam-x);
+  top: var(--gleam-y);
+  width: var(--gleam-size);
+  height: var(--gleam-size);
+  background: rgba(var(--gacha-effect-halo), .9);
+  clip-path: polygon(50% 0, 60% 39%, 100% 50%, 60% 61%, 50% 100%, 40% 61%, 0 50%, 40% 39%);
+  opacity: 0;
+  animation: gacha-reward-gleam 950ms cubic-bezier(.25,.7,.25,1) var(--gleam-delay) both;
+}
+.gacha-celebration[data-tier="none"] .gacha-celebration-glow {
+  background: radial-gradient(ellipse, rgba(var(--gacha-effect-halo), .055), transparent 65%);
+}
+.gacha-celebration[data-tier="none"] .gacha-celebration-glow::after { display: none; }
+.gacha-celebration[data-tier="none"] .gacha-celebration-gleam { background: #d6c4ff; }
+@keyframes gacha-reward-bloom {
+  0% { opacity: 0; transform: translateX(-50%) scale(.62); }
+  22% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) scale(1.4); }
+}
+@keyframes gacha-reward-gleam {
+  0% { opacity: 0; transform: scale(.4) rotate(-14deg); }
+  32% { opacity: .8; transform: scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: scale(.6) rotate(16deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gacha-celebration { display: none; }
+  .gacha-celebration * { animation: none !important; }
+}

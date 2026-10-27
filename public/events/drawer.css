@@ -1,0 +1,51 @@
+/* Shared AI / expert / card navigation, scoped to its overlay. */
+.app-drawer-layer{position:absolute;inset:0;z-index:90;pointer-events:none;visibility:hidden;transition:visibility .28s;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:16px;line-height:1.5;color:#f5f3ff}
+:where(.app-drawer-layer *,.app-drawer-layer ::before,.app-drawer-layer ::after){box-sizing:border-box;margin:0;padding:0;border:0 solid}
+:where(.app-drawer-layer button){font:inherit;color:inherit;background:transparent;cursor:pointer}
+:where(.app-drawer-layer svg,.app-drawer-layer img){display:block;vertical-align:middle}
+:where(.app-drawer-layer img){max-width:100%;height:auto}
+.app-drawer-layer :where(button:focus-visible){outline:2px solid #83dfff;outline-offset:2px}
+.app-drawer-layer[hidden]{display:none}
+.app-drawer-layer[inert]{pointer-events:none}
+.app-drawer-layer.is-open{pointer-events:auto;visibility:visible}
+.app-drawer-scrim{position:absolute;inset:0;background:#02030bb5;backdrop-filter:blur(9px);opacity:0;transition:opacity .24s ease}
+.app-drawer-layer.is-open .app-drawer-scrim{opacity:1}
+.app-drawer{position:absolute;inset:0 auto 0 0;width:min(82%,350px);display:flex;flex-direction:column;padding:20px 12px 0;border-right:1px solid #9b8aff36;background:radial-gradient(circle at 18% 5%,#6152c634,transparent 26%),radial-gradient(circle at 100% 32%,#1e88c51d,transparent 32%),#090b1df7;box-shadow:24px 0 70px #000b;transform:translateX(-104%);transition:transform .34s cubic-bezier(.22,.84,.29,1);overflow:hidden}
+.app-drawer:after{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(#8271ff09 1px,transparent 1px),linear-gradient(90deg,#8271ff09 1px,transparent 1px);background-size:30px 30px;mask-image:linear-gradient(black,transparent 82%);pointer-events:none}
+.app-drawer-layer.is-open .app-drawer{transform:translateX(0)}
+
+/* Two-column account row: flexible identity and a dedicated close control. */
+.app-drawer .drawer-account{display:grid;grid-template-columns:minmax(0,1fr) 32px;gap:6px;align-items:center;padding:5px 0 14px;border-bottom:1px solid #9bdcff1a}
+.app-drawer .drawer-user-entry{min-width:0;height:54px;display:grid;grid-template-columns:40px minmax(0,1fr);gap:6px;align-items:center;padding:4px 2px}
+.app-drawer .drawer-avatar{width:40px;height:40px;display:block;overflow:hidden;border:1px solid #83dfff55;border-radius:13px;background:#11162f;box-shadow:0 0 0 3px #6f5cff0d,0 0 20px #4aaee736,inset 0 1px #ffffff3b}
+.app-drawer .drawer-avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 24%;filter:saturate(.86) contrast(1.03)}
+.app-drawer .drawer-user-copy{min-width:0;display:block}
+.app-drawer .drawer-user-copy strong{display:block;overflow:hidden;color:#f8f7ff;font-size:14px;font-weight:760;letter-spacing:0;text-overflow:ellipsis;white-space:nowrap}
+.app-drawer .drawer-user-copy span{display:block;margin-top:4px;color:#8d98b8;font-size:10px;font-weight:520}
+.app-drawer .drawer-close{width:32px;height:36px;display:grid;place-items:center;border:1px solid #ffffff0d;border-radius:10px;background:#ffffff06;color:#949db7;transition:border-color .2s ease,background .2s ease,color .2s ease}
+.app-drawer .drawer-close:active{transform:scale(.97)}
+
+/* Four real destinations, arranged as two rows of two. */
+.app-drawer .drawer-console{position:relative;isolation:isolate;margin-top:13px;padding:12px 9px 10px;border:1px solid transparent;border-radius:24px 9px 24px 15px;background:radial-gradient(circle at 88% 4%,#3f9bda20,transparent 28%),radial-gradient(circle at 4% 96%,#7258df1a,transparent 35%),linear-gradient(148deg,#111832f5,#090d22f4 72%) padding-box,linear-gradient(128deg,#77dcff70,#7d70ff69 52%,#e4bd604d) border-box;box-shadow:inset 0 1px #ffffff20,inset 0 -16px 30px #02040b42,0 19px 46px #01030dab,0 0 32px #526cff1a;overflow:hidden}
+.app-drawer .drawer-console:before{content:"";position:absolute;z-index:2;right:14px;top:9px;width:56px;height:1px;border-radius:99px;background:linear-gradient(90deg,transparent,#69d7ff96 48%,#d9bc67a8);box-shadow:0 0 9px #6f8fff80;transform:rotate(-9deg);pointer-events:none}
+.app-drawer .drawer-shortcuts{position:relative;z-index:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.app-drawer .drawer-shortcut{min-width:0;min-height:58px;display:grid;grid-template-columns:30px minmax(0,1fr);gap:7px;align-items:center;padding:8px;border:1px solid #ffffff11;border-radius:17px 8px 17px 12px;background:linear-gradient(138deg,#ffffff0c,#ffffff04 72%);color:inherit;text-align:left;box-shadow:inset 0 1px #ffffff14,0 9px 22px #02040d42}
+.app-drawer .drawer-shortcut>span{width:30px;height:30px;display:grid;place-items:center;border:1px solid #62cdff45;border-radius:10px;background:#2878ad14;color:#7bd9ff;box-shadow:inset 0 1px #ffffff13,0 0 14px #44bfff12}
+.app-drawer .drawer-shortcut:nth-child(2)>span{border-color:#e7c66540;background:#d5a8320e;color:#eccb73;box-shadow:inset 0 1px #ffffff13,0 0 14px #d5b34812}
+.app-drawer .drawer-shortcut.drawer-lottery-entry>span{border-color:#8e7dff55;background:#6d58ef1d;color:#b5a9ff}
+.app-drawer .drawer-shortcut b{overflow:hidden;color:#f0eff7;font-size:11px;font-weight:700;letter-spacing:.01em;text-overflow:ellipsis;white-space:nowrap}
+.app-drawer .drawer-divider{position:relative;z-index:1;height:1px;margin:11px 3px;background:linear-gradient(90deg,transparent,#6ddaff44 18%,#9180ffb0 50%,#e1bf6747 82%,transparent);box-shadow:0 0 8px #6c79ff55}
+
+.app-drawer .drawer-new-chat{position:relative;width:100%;min-height:55px;display:grid;grid-template-columns:34px minmax(0,1fr) 27px;gap:9px;align-items:center;margin:12px 0;padding:8px 13px;border:1px solid #958affb8;border-radius:19px 13px 19px 19px;background:radial-gradient(circle at 8% 50%,#ffd66a17,transparent 20%),linear-gradient(112deg,#332b87,#5044bf 54%,#3568bd);box-shadow:0 16px 36px #21175e8a,0 0 24px #5f72df2b,inset 0 1px #ffffff4d;color:#fff;text-align:left;overflow:hidden}
+.app-drawer .drawer-new-chat:after{content:"";position:absolute;right:37px;top:50%;width:62px;height:1px;background:linear-gradient(90deg,transparent,#c9d8ff54,transparent);transform:translateY(-50%);pointer-events:none}
+.app-drawer .drawer-new-chat-icon{width:34px;height:34px;display:grid;place-items:center;color:#ffd66f}
+.app-drawer .drawer-new-chat-icon-spark{color:#ffd66f;filter:drop-shadow(0 0 5px #ffd46a) drop-shadow(0 0 13px #ffbd45a6);animation:drawerStarBreath 3.8s ease-in-out infinite}
+.app-drawer .drawer-new-chat b{display:block;color:#fff;font-size:15px;font-weight:760;letter-spacing:.035em;text-shadow:0 2px 12px #101442}
+.app-drawer .drawer-new-chat-spark{display:grid;place-items:center;color:#dbe8ff;filter:drop-shadow(0 0 7px #71cfff66)}
+.app-drawer .drawer-new-chat:focus-visible{outline:2px solid #ffd36c;outline-offset:3px}
+@keyframes drawerStarBreath{0%,100%{opacity:.9;transform:scale(.96);filter:drop-shadow(0 0 5px #ffd46a) drop-shadow(0 0 11px #ffbd457a)}50%{opacity:1;transform:scale(1.04);filter:drop-shadow(0 0 7px #ffe19a) drop-shadow(0 0 16px #ffbd45b8)}}
+@media(hover:hover){.app-drawer .drawer-close:hover{border-color:#ffffff21;background:#ffffff0b;color:#d9dded}.app-drawer .drawer-shortcut:hover{border-color:#8e7dff82;background:#7562ff1d}.app-drawer .drawer-new-chat:hover{filter:brightness(1.06);transform:translateY(-1px)}}
+@media(prefers-reduced-motion:reduce){.app-drawer-layer,.app-drawer,.app-drawer-scrim,.app-drawer .drawer-close{transition:none}.app-drawer .drawer-new-chat-icon-spark{animation:none}}
+
+#cl-toast{position:fixed;z-index:10000;left:50%;bottom:100px;transform:translateX(-50%);width:max-content;max-width:min(330px,90vw);font:11px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:#eee4fc;background:#29223bef;border:1px solid #ab8bd260;padding:11px 16px;border-radius:11px;box-shadow:0 8px 40px #0005;pointer-events:none;text-align:center}
+#cl-toast[hidden]{display:none}
