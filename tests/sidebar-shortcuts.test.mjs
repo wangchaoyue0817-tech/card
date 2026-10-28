@@ -107,23 +107,30 @@ test('replacing the homepage order shortcut does not remove the existing product
   assert.match(read('public/home-card-entry.js'), /['"]drawer\.css['"]/);
 });
 
-test('both exported shortcuts are complete standalone vector tiles matching the live icons and color roles', () => {
+test('exported sidebar icons are standalone transparent outlines with design-system accent colors', () => {
   for (const [file, label, icon, color] of [
-    ['lottery-center.svg', '抽奖中心', 'Gift', '#eccb73'],
-    ['customer-support.svg', '人工客服', 'Headset', '#b5a9ff']
+    ['lottery-center.svg', '抽奖中心', 'Gift', '#F4D475'],
+    ['customer-support.svg', '人工客服', 'Headset', '#C8BAFF']
   ]) {
     const svg = read(`public/assets/sidebar/${file}`);
     assert.match(svg, /<svg\b[^>]*xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
-    assert.match(svg, /\bviewBox="0 0 [\d.]+ [\d.]+"/);
-    assert.ok(svg.includes(label), `${file} must retain its visible Chinese title`);
-    assert.match(svg, /<text\b/, 'deliver the complete labeled shortcut, not just an isolated icon');
-    assert.match(svg, /<(?:rect|path)\b/);
-    assert.match(svg, /<(?:linearGradient|radialGradient)\b/, 'preserve the layered surface treatment');
-    assert.ok(svg.toLowerCase().includes(color), `${file} should share the live accent color`);
+    assert.match(svg, /\bviewBox="0 0 256 256"/);
+    assert.match(svg, /\bwidth="64" height="64"/);
+    assert.match(svg, /\brole="img"/);
+    const titleId = svg.match(/aria-labelledby="([^"]+)"/)?.[1];
+    assert.ok(titleId && svg.includes(`<title id="${titleId}">${label}</title>`), 'retain the accessible name without a visible text label');
+    const descId = svg.match(/aria-describedby="([^"]+)"/)?.[1];
+    assert.ok(descId && svg.includes(`<desc id="${descId}">`));
+    assert.ok(svg.includes(`fill="${color}"`), `${file} should use its design-system foreground token`);
+    assert.deepEqual(iconPaths(svg), [iconPaths(sidebarIcons[icon]).at(-1)], 'retain the actual icon outline; omit the duotone fill, card and pedestal');
+    const markup = svg.replace(/<!--[\s\S]*?-->/g, '');
+    const tags = [...markup.matchAll(/<([a-zA-Z][\w:-]*)\b/g)].map(match => match[1]);
+    assert.deepEqual(tags, ['svg', 'title', 'desc', 'path'], 'only the glyph may paint; no background, filter or visible label');
+    assert.doesNotMatch(markup, /\b(?:style|opacity|filter|transform)\s*=/i, 'do not hide or rescale the outline');
+    assert.match(svg, /Copyright \(c\) 2020 Phosphor Icons/, 'standalone source retains attribution');
     assert.doesNotMatch(svg, /<(?:image|foreignObject|script)\b|@import|data:image|(?:href|src)\s*=\s*["'](?:https?:|\/)/i);
     for (const match of svg.matchAll(/(?:href|src)\s*=\s*["']([^"']+)["']/g)) {
       assert.ok(match[1].startsWith('#'), 'SVG assets must not depend on external images or other files');
     }
-    for (const path of iconPaths(sidebarIcons[icon])) assert.ok(svg.includes(path), `${file} must reuse the actual ${icon} path`);
   }
 });
