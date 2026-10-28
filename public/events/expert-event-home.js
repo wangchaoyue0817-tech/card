@@ -3,6 +3,7 @@ import {loadEvent,saveEvent,eventNow} from './expert-event-session.js';
 import {machineMarkup,mountMachine,prizeArt} from './capsule-machine.js';
 import {progressMarkup,rewardArt,firstGuideMarkup,focusProgress,openActivityHub,openDraw,openProgress,openLeaderboard,openRules,showEventDialog,closeEventDialog,eventCount,icon,escapeHtml as esc} from './expert-event-ui.js';
 import {DEMO_SCENE_GROUPS,applyDemoScene} from './expert-event-demo.js';
+import '../phase2-service-bridge.js';
 
 const $=id=>document.getElementById(id);
 let homeMachine=null,flow=null,reportId=null,product=null,submitting=false,aiTimer=null,lastScene=null;
@@ -104,9 +105,16 @@ function renderReport(){
  flow.querySelector('.eh-flow-body').innerHTML=`<div class="eh-report-hero"><span class="ev-eyebrow">图灵专家鉴别报告</span><h1>${esc(product?.name||order.product)}</h1><p>${esc(order.category)} · 订单 ${esc(order.id.slice(-8).toUpperCase())}</p><span class="eh-report-status">${icon('shield')} ${order.result?'已完成':'专家已派单'}</span></div>
  <div class="eh-report-metrics"><span>服务方式<b>专家鉴别</b></span><span>鉴别状态<b>${resultLabel}</b></span><span>点位数量<b>5 个</b></span></div>
  <div class="eh-report-result"><div class="eh-section-label"><strong>图灵专家鉴别结果</strong><span>${order.result?'已完成':'已派单'}</span></div><div class="eh-result-shield ${order.result==='false'?'is-false':''}">${icon('shield')}</div><h2>${order.result?`专家结论：${resultLabel}`:'专家正在鉴别中'}</h2><p>${order.result?'当前为模拟结果，用于体验鉴别与榜单联动。':'评估完成后，你可以在此查看专家结论。'}</p></div>
- <details class="eh-demo-results"><summary>演示：生成专家结果</summary><p>仅用于体验报告与排行榜的联动</p><div>${[['true','鉴真'],['false','鉴假'],['unknown','无法判断']].map(([value,text])=>`<button data-result="${value}" ${order.result?'disabled':''}>${text}</button>`).join('')}</div></details>`;
+ <details class="eh-demo-results"><summary>演示：生成专家结果</summary><p>仅用于体验报告与排行榜的联动</p><div>${[['true','鉴真'],['false','鉴假'],['unknown','无法判断']].map(([value,text])=>`<button data-result="${value}" ${order.result?'disabled':''}>${text}</button>`).join('')}</div></details>
+ ${order.category==='卡牌'?`<details class="p2-service-payment"><summary>第二期演示：结算与发券</summary><p>免费提交不触发发券。此按钮仅模拟卡牌专鉴支付成功，不会实际扣款；同一订单只发放一次。</p><button data-p2-settle>模拟支付成功 · 领取抽奖券</button></details>`:''}`;
+ flow.querySelector('[data-p2-settle]')?.addEventListener('click',event=>{
+  if(typeof CustomEvent!=='function')return;
+  window.dispatchEvent(new CustomEvent('jianx-card-expert-paid',{detail:{id:order.id,category:order.category,payment:'cash',success:true},cancelable:true}));
+  event.currentTarget.disabled=true;event.currentTarget.textContent='已模拟结算 · 按活动规则发券';
+ });
  flow.querySelectorAll('[data-result]').forEach(b=>b.onclick=()=>{
   const r=completeOrder(loadEvent(),reportId,b.dataset.result,eventNow());saveEvent(r.state);renderReport();
+  if(!r.error&&!order.result&&typeof CustomEvent==='function')window.dispatchEvent(new CustomEvent('jianx-card-expert-result',{detail:{id:order.id,category:order.category,result:b.dataset.result,success:true},cancelable:true}));
  });
 }
 function runDemoScene(id,options={}){

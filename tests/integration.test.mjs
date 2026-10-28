@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
-import {mountSecondPhaseEntry, secondPhaseEntry} from '../public/events/phase2-entry.js';
+import {mountSecondPhaseEntry, secondPhaseEntry,secondPhasePrizesEntry} from '../public/events/phase2-entry.js';
 
 const shellSource = readFileSync(new URL('../public/site-shell.js', import.meta.url), 'utf8');
 
@@ -71,7 +71,8 @@ test('expert and card routes use imported activity pages while EB05 has its inde
   for (const [route, module, pathname] of [
     ['expert', 'expert', '/events/home.html'],
     ['card', 'card', '/events/card.html'],
-    ['card-eb05', 'phase2', '/phase2.html']
+    ['card-eb05', 'phase2', '/phase2.html'],
+    ['card-eb05-prizes', 'phase2', '/phase2.html']
   ]) {
     const f = shellFixture(`#${route}`), frame = f.frames[0];
     const url = new URL(frame.src, f.location.origin);
@@ -83,6 +84,15 @@ test('expert and card routes use imported activity pages while EB05 has its inde
     f.send(frame, {type: 'ready'});
     assert.equal(lastActivation(frame).route, route);
   }
+});
+
+test('second-phase prize summary links to its independent prize view and leaves existing campaign totals alone',()=>{
+  const state={draws:[{rewards:[{type:'physical'},{type:'voucher'},{type:'voucher'}]}]};
+  const html=secondPhasePrizesEntry(state);
+  assert.match(html,/实物 1 份 · 专家鉴定券 2 张/);
+  assert.match(html,/data-phase2-prize-link/);
+  assert.match(html,/双11与卡牌第一期/);
+  assert.doesNotMatch(html,/data-action="address|data-action="voucher/);
 });
 
 test('lottery, prizes and ranking share the imported activity frame and preserve latest pending destination', () => {

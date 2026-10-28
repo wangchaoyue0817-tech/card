@@ -5,6 +5,19 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const root = fileURLToPath(new URL('../../public/events/', import.meta.url));
+const publicRoot = path.resolve(root, '..');
+// Only these additive EB05 resources may cross the archived import boundary.
+// Every original resource remains confined to events; the shared files must
+// still resolve inside this project's public directory and exist on disk.
+const sharedPhase2Resources = new Set([
+  path.join(publicRoot, 'phase2-service-bridge.js'),
+  path.join(publicRoot, 'phase2-grant-dialog.css')
+]);
+// The added activity/prize entry reads only the second-period summary state.
+const phase2EntryResources = new Set([
+  path.join(publicRoot, 'phase2-session.js'),
+  path.join(publicRoot, 'phase2-model.js')
+]);
 async function filesIn(directory) {
   const files = [];
   for (const entry of await readdir(directory, {withFileTypes: true})) {
@@ -41,7 +54,10 @@ test('HTML, CSS and JavaScript local resources and module imports all exist', as
       const pathname = reference.split(/[?#]/)[0];
       if (!pathname || pathname.includes('${')) continue;
       const target = pathname.startsWith('/') ? path.resolve(root, `.${pathname}`) : path.resolve(path.dirname(filename), pathname);
-      if (path.relative(root, target).startsWith('..')) {
+      const outsideEvents = path.relative(root, target).startsWith('..');
+      const allowedEntry = path.basename(filename) === 'phase2-entry.js' && phase2EntryResources.has(target);
+      const allowedShared = (sharedPhase2Resources.has(target) || allowedEntry) && !path.relative(publicRoot, target).startsWith('..');
+      if (outsideEvents && !allowedShared) {
         missing.push(`${path.relative(root, filename)} escapes public: ${reference}`);
         continue;
       }
@@ -78,7 +94,8 @@ test('navigation exposes home, expert, card and the shared activity destinations
     for (const match of source.matchAll(/\b(?:jianxNavigate|navigate|jianxRoute)\(\s*['"]([\w-]+)['"]/g)) {
       // The two additive entry modules delegate to the new parent-shell route.
       const isPhase2Entry = ['phase2-entry.js','phase2-card-entry.js'].includes(path.basename(filename));
-      assert.ok(expected.has(match[1]) || (isPhase2Entry && match[1] === 'card-eb05'), `${path.relative(root, filename)} navigates to excluded route ${match[1]}`);
+      const isPhase2Route = match[1] === 'card-eb05' || (path.basename(filename) === 'phase2-entry.js' && match[1] === 'card-eb05-prizes');
+      assert.ok(expected.has(match[1]) || (isPhase2Entry && isPhase2Route), `${path.relative(root, filename)} navigates to excluded route ${match[1]}`);
     }
   }
 });

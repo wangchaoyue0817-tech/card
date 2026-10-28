@@ -1,5 +1,5 @@
-const routes={home:'home',skin:'skin','skin-management':'skin',orders:'skin',expert:'expert',card:'card',lottery:'activity',prizes:'activity',ranking:'activity','card-eb05':'phase2'};
-const titles={home:'首页',skin:'AI 肌肤检测','skin-management':'皮肤管理',orders:'商品订单',expert:'专鉴服务',card:'鉴卡牌',lottery:'抽奖中心',prizes:'我的奖品',ranking:'专鉴荣誉榜','card-eb05':'海贼 EB05 第二期'};
+const routes={home:'home',skin:'skin','skin-management':'skin',orders:'skin',expert:'expert',card:'card',lottery:'activity',prizes:'activity',ranking:'activity','card-eb05':'phase2','card-eb05-prizes':'phase2'};
+const titles={home:'首页',skin:'AI 肌肤检测','skin-management':'皮肤管理',orders:'商品订单',expert:'专鉴服务',card:'鉴卡牌',lottery:'抽奖中心',prizes:'我的奖品',ranking:'专鉴荣誉榜','card-eb05':'海贼 EB05 第二期','card-eb05-prizes':'海贼 EB05 · 我的奖品'};
 const pages={home:'home.html',skin:'skin.html',expert:'events/home.html',card:'events/card.html',activity:'events/activity.html',phase2:'phase2.html'};
 const frames=new Map(),pending=new Map(),ready=new Set();let current='';
 function send(frame,message){frame.contentWindow?.postMessage({channel:'jianx-shell',...message},location.origin);}

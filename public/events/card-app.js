@@ -4,6 +4,7 @@ import {ticketPanel,prizePanel,prizePool,ticketHistory} from './center-pages.js'
 import {sidebarIcons} from './sidebar-icons.js';
 import {selectionMarkup,mountDraw,celebrate,rarityCopy} from './draw-experience.js';
 import {grantMarkup,voucherMarkup,rulesMarkup,ticketEmblem} from './reward-ui.js';
+import '../phase2-service-bridge.js';
 const $=id=>document.getElementById(id),KEY='jianx-card-preview-v1';
 let saved;try{saved=JSON.parse(localStorage.getItem(KEY));}catch{}
 let data=saved?.state?.version===1?saved.state:fresh();
@@ -169,7 +170,7 @@ async function action(a){
     case 'sample':sample=true;clearCardPhoto();report=null;cardBrand='';cardStyle='';render();document.querySelector('.card-recognition')?.scrollIntoView({behavior:'smooth',block:'center'});break;
     case 'identify':{
       if(busy||(!sample&&!fileURL))return;if(!cardBrand){chooseStyle();return;}busy=true;const version=scenarioVersion;render();
-      setTimeout(()=>{if(version!==scenarioVersion)return;reloadCampaign();const id=crypto.randomUUID();report={id,at:now(),expert:false};const r=identify(data,{id,kind:'ai'},now());data=r.state;save();busy=false;render();if(r.awarded||r.capped){const options={amount:r.awarded?1:0,source:'AI 鉴定完成',today:dailyCount(data,now()),sharePrompt:r.sharePrompt,day:dayKey(now())};if(window.jianxActive)showGrant(options);else pendingGrant=options;}else notify('模拟鉴定已完成，当前不在活动期间');},800);break;
+      setTimeout(()=>{if(version!==scenarioVersion)return;reloadCampaign();const id=crypto.randomUUID();report={id,at:now(),expert:false};const r=identify(data,{id,kind:'ai'},now());data=r.state;save();busy=false;render();const resultEvent=typeof CustomEvent==='function'?new CustomEvent('jianx-card-ai-result',{detail:{id,category:'卡牌',success:true,result:'reference'},cancelable:true}):null;if(resultEvent)window.dispatchEvent(resultEvent);if(r.awarded||r.capped){const options={amount:r.awarded?1:0,source:'AI 鉴定完成',today:dailyCount(data,now()),sharePrompt:r.sharePrompt,day:dayKey(now())};if(window.jianxActive)showGrant(options);else pendingGrant=options;}else if(!resultEvent?.defaultPrevented)notify('模拟鉴定已完成，当前不在活动期间');},800);break;
     }
     case 'expert':showExpert();break;
     case 'pay-expert':showExpert();break;
