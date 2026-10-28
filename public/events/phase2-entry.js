@@ -2,7 +2,7 @@ import {loadPhase2,phase2Now} from '../phase2-session.js';
 import {available} from '../phase2-model.js';
 // Add the next campaign without changing either imported campaign's controller.
 export function secondPhaseEntry() {
-  return `<button class="ac-choice ac-choice-eb05" data-phase2-entry aria-label="查看海贼 EB05 第二期活动"><span class="ac-choice-copy"><small>第二期 · 10.30 — 11.05</small><strong>海贼 EB05 上新</strong><span>免费抽好礼 · 每一份收藏都有回应</span><b>查看活动 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></b></span><span class="eb05-entry-art" aria-hidden="true"><i></i><img src="assets/lottery-card-back.png" alt=""><img src="assets/lottery-card-back.png" alt=""><em>EB05</em></span></button>`;
+  return `<button class="ac-choice ac-choice-eb05" data-phase2-entry aria-label="查看海贼 EB05 第二期活动"><span class="ac-choice-copy"><small>第二期 · 10.30 — 11.05</small><strong>海贼 EB05 上新</strong><span>免费抽好礼 · 每一份收藏都有回应</span><b>查看活动 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></b></span><span class="eb05-entry-art" aria-hidden="true"><img class="eb05-entry-illustration" src="assets/eb05-entry-cards.webp" width="640" height="640" alt="" decoding="async"></span></button>`;
 }
 
 export function mountSecondPhaseEntry(root = document) {
