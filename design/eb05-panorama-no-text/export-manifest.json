@@ -1,0 +1,17 @@
+{
+  "generator": "Built-in Codex image_gen",
+  "export": "Exact proportional resize only; no crop, no added typography",
+  "width": 1440,
+  "height": 480,
+  "text": [],
+  "buttons": [],
+  "source": "art-source.png",
+  "sourceWidth": 2172,
+  "sourceHeight": 724,
+  "sourceSha256": "a926ab81e827f606cadc1a2e9afa19bc636c3b45fc7f9c2202ef6422f1427d00",
+  "file": "eb05-panorama-no-text-1440x480.png",
+  "sha256": "dd6441db0192adaef376876c43f908ce42f342dd24f5439e8a129090c6b8e14b",
+  "styleReference": "../eb05-home-banner/art-background.png",
+  "composition": "Five-card panoramic arc, centered straw-hat skull, crossed swords and compass and flower-eye emblems, violet ribbons and nautical rope",
+  "scope": "Standalone design asset. Existing main banner and live pages unchanged."
+}
