@@ -5,8 +5,7 @@ export function notify(message){
   let el=document.getElementById('cl-toast');if(!el){el=document.createElement('div');el.id='cl-toast';el.setAttribute('role','status');document.body.append(el);}
   el.textContent=message;el.hidden=false;clearTimeout(notify.timer);notify.timer=setTimeout(()=>el.hidden=true,3200);
 }
-// Static port of the existing app/app-sidebar.tsx. Keep its content and structure;
-// the only new element is drawer-lottery-entry in the top service row.
+// Shared static drawer. Keep the service row and exported SVG assets in sync.
 export function setupDrawer(openButton, actions={}){
   if(document.getElementById('app-drawer-layer'))return;
   const icon=(name, className='')=>sidebarIcons[name].replace('<svg ',`<svg class="${className}" `);
@@ -31,10 +30,10 @@ export function setupDrawer(openButton, actions={}){
         <button class="drawer-close" type="button" aria-label="关闭侧边栏" data-close>${icon('X')}</button>
       </header>
       <section class="drawer-console" aria-label="快捷功能">
-        <div class="drawer-shortcuts two-columns has-lottery" role="group" aria-label="订单服务">
-          <button class="drawer-shortcut" data-expert><span>${icon('Scan')}</span><b>专鉴服务</b></button>
-          <button class="drawer-shortcut" type="button" data-orders aria-label="商品订单，查看核验与物流"><span>${icon('Bag')}</span><b>商品订单</b></button>
-          <button class="drawer-shortcut drawer-lottery-entry"><span>${icon('Gift')}</span><b>抽奖中心</b></button>
+        <div class="drawer-shortcuts two-columns has-lottery" role="group" aria-label="服务与活动">
+          <button class="drawer-shortcut" type="button" data-expert><span>${icon('Scan')}</span><b>专鉴服务</b></button>
+          <button class="drawer-shortcut drawer-lottery-entry" type="button"><span>${icon('Gift')}</span><b>抽奖中心</b></button>
+          <button class="drawer-shortcut drawer-support-entry" type="button" data-support aria-label="人工客服"><span>${icon('Headset')}</span><b>人工客服</b></button>
         </div>
         <div class="drawer-divider" aria-hidden="true"></div>
         <div class="drawer-shortcuts three-columns" role="group" aria-label="智能功能">
@@ -83,7 +82,7 @@ export function setupDrawer(openButton, actions={}){
   layer.querySelectorAll('[data-close]').forEach(button=>button.onclick=close);
   layer.querySelector('.drawer-lottery-entry').onclick=()=>{close();window.jianxNavigate('lottery');};
   layer.querySelector('[data-expert]').onclick=()=>{close();window.jianxNavigate('expert');};
-  layer.querySelector('[data-orders]').onclick=()=>{close();(actions.onOrders||(()=>window.jianxNavigate('orders')))();};
+  layer.querySelector('[data-support]').onclick=()=>{close();(actions.onSupport||(()=>notify('人工客服尚未接入，当前为演示入口')))();};
   layer.querySelector('[data-skin]').onclick=()=>{close();(actions.onSkinManagement||(()=>window.jianxNavigate('skin-management')))();};
   layer.querySelector('[data-new-chat]').onclick=()=>{close();if(actions.onNewChat)actions.onNewChat();else window.jianxNewChat();};
   return {open,close,element:layer};

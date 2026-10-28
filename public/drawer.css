@@ -11,11 +11,15 @@
 .app-drawer-layer :where(a) { color:inherit; text-decoration:none; }
 .app-drawer-layer :where([hidden]) { display:none!important; }
 
-/* The only layout addition: a third service tile to the right of 商品订单. */
+/* Service row: expert / lottery (gold) / support (violet). */
 .app-drawer .drawer-shortcuts.two-columns.has-lottery { grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; }
 .app-drawer .drawer-shortcuts.two-columns.has-lottery .drawer-shortcut { grid-template-columns:1fr; grid-template-rows:30px auto; justify-items:center; gap:6px; padding:8px 2px; text-align:center; }
 .app-drawer .drawer-shortcuts.two-columns.has-lottery .drawer-shortcut b { overflow:visible; text-overflow:clip; }
-.app-drawer .drawer-shortcut.drawer-lottery-entry>span { border-color:#8e7dff55; background:#6d58ef1d; color:#b5a9ff; }
+.app-drawer .drawer-shortcuts.two-columns .drawer-shortcut.drawer-lottery-entry { --shortcut-accent:#eccb73; --shortcut-edge:#e7c66540; --shortcut-icon-bg:#d5a8320e; --shortcut-glow:#d5b34812; }
+.app-drawer .drawer-shortcuts.two-columns .drawer-shortcut.drawer-support-entry { --shortcut-accent:#b5a9ff; --shortcut-edge:#8e7dff55; --shortcut-icon-bg:#6d58ef1d; --shortcut-glow:#8e7dff12; }
+.app-drawer .drawer-shortcuts.two-columns .drawer-shortcut:is(.drawer-lottery-entry,.drawer-support-entry)>span { border-color:var(--shortcut-edge); background:var(--shortcut-icon-bg); color:var(--shortcut-accent); box-shadow:inset 0 1px #ffffff13,0 0 14px var(--shortcut-glow); }
+@media(hover:hover){.app-drawer .drawer-shortcuts.two-columns .drawer-shortcut:is(.drawer-lottery-entry,.drawer-support-entry):hover{border-color:var(--shortcut-edge);background:var(--shortcut-icon-bg)}}
+.app-drawer .drawer-shortcuts.two-columns .drawer-shortcut:is(.drawer-lottery-entry,.drawer-support-entry):focus-visible { outline-color:var(--shortcut-accent); }
 
 #cl-toast{position:fixed;z-index:10000;left:50%;bottom:100px;transform:translateX(-50%);width:max-content;max-width:min(330px,90vw);font:11px/1.8 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#eee4fc;background:#29223bef;border:1px solid #ab8bd260;padding:11px 16px;border-radius:11px;box-shadow:0 8px 40px #0005;pointer-events:none;text-align:center}
 #cl-toast[hidden]{display:none}
