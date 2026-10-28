@@ -2,8 +2,9 @@
 function updateEntry(){
  const entry=document.querySelector('.card-luck-entry');if(!entry||entry.dataset.phase2)return;
  entry.dataset.phase2='true';entry.dataset.action='open-eb05-preview';
- entry.querySelector('strong').textContent='海贼 EB05 上新，免费抽好礼';
- entry.querySelector('em').textContent='第二期 · 10.30—11.05 · 前往抽奖';
+ entry.querySelector('strong').textContent='海贼 EB05 免费抽';
+ entry.querySelector('em').textContent='10.30—11.05';
+ entry.setAttribute('aria-label','海贼 EB05 免费抽，10月30日至11月5日，进入活动');
 }
 updateEntry();
 new MutationObserver(updateEntry).observe(document.getElementById('card-content'),{childList:true});

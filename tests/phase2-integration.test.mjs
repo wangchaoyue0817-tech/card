@@ -285,7 +285,7 @@ function grantFixture({standalone = false} = {}) {
     get response() {return response;},
     get pendingCloseEvents() {return closeEvents.length;},
     flushCloseEvents() {while (closeEvents.length) closeEvents.shift()();},
-    show(result = response) {context.showPhase2Grant(result);},
+    show(result = response, options) {context.showPhase2Grant(result, options);},
     close() {context.closePhase2Grant();},
     setNow(value) {now = value;},
     setState(value) {state = structuredClone(value);},
@@ -295,6 +295,52 @@ function grantFixture({standalone = false} = {}) {
     }
   };
 }
+
+test('grant dialog states actual credit with accessible quantity, source and expiry instead of decorative copy', () => {
+  const f = grantFixture();
+  f.show(f.response, {source: 'AI 卡牌鉴定完成'});
+  assert.equal(f.dialog.querySelector('#p2-service-title').textContent, '抽奖券已到账');
+  const coupon = f.dialog.querySelector('.p2-sg-keepsake');
+  assert.ok(coupon);
+  assert.equal(coupon.getAttribute('aria-hidden'), null, 'quantity and ticket type remain available to screen readers');
+  assert.equal(coupon.querySelector('span').textContent, '+1');
+  assert.equal(coupon.querySelector('small').textContent, '普通抽奖券');
+  assert.equal(coupon.querySelector('svg').getAttribute('aria-hidden'), 'true');
+  assert.match(f.dialog.querySelector('.p2-sg-source').textContent, /AI 卡牌鉴定完成.*11\/05 23:59 到期/);
+  assert.match(f.dialog.querySelector('.p2-sg-limit').textContent, /10 \/ 10 张/);
+  assert.equal(f.dialog.querySelector('.p2-sg-eyebrow'), null);
+  assert.equal(f.dialog.querySelector('.p2-sg-description'), null);
+  assert.doesNotMatch(f.dialog.textContent, /COLLECTION REWARDS|每一次认真|收藏期待|收藏新旅程|额外礼遇/);
+  assert.match(f.dialog.querySelector('.p2-sg-share small').textContent, /每天一次.*仅本弹窗有效.*关闭后当天不可补领.*不占鉴定额度/);
+  assert.match(f.dialog.querySelector('[data-p2-share]').textContent, /模拟转发小程序 · 领取 5 张/);
+  assert.equal(f.dialog.getAttribute('aria-labelledby'), 'p2-service-title');
+  assert.equal(f.dialog.querySelector('.p2-sg-close').getAttribute('aria-label'), '关闭赠券弹窗');
+});
+
+test('newcomer grant preserves its five-ticket type, expiry and all-at-once condition without duplicate descriptions', () => {
+  const f = grantFixture(), outcome = enterCardPage(newUser(), {route: 'card'}, T);
+  f.setState(outcome.state);
+  f.show(outcome, {source: '新人礼包', pool: 'welcome'});
+  assert.equal(f.dialog.querySelector('#p2-service-title').textContent, '新人券已到账');
+  assert.equal(f.dialog.querySelector('.p2-sg-keepsake span').textContent, '+5');
+  assert.equal(f.dialog.querySelector('.p2-sg-keepsake small').textContent, '新人专属抽奖券');
+  assert.match(f.dialog.querySelector('.p2-sg-source').textContent, /新人礼包.*10\/31 12:00 到期/);
+  assert.equal(f.dialog.querySelector('.p2-sg-limit').textContent, '24 小时有效 · 仅限整组五连抽');
+  assert.match(f.dialog.querySelector('[data-p2-go]').textContent, /开启新人五连抽/);
+  assert.equal(f.dialog.querySelector('[data-p2-share]'), null);
+  assert.equal(f.dialog.querySelector('.p2-sg-description'), null);
+});
+
+test('capped completion never suggests a new ticket was credited and retains the daily-limit explanation', () => {
+  const f = grantFixture();
+  f.show({state: f.state, awarded: false, capped: true, amount: 0}, {source: 'AI 卡牌鉴定完成'});
+  assert.equal(f.dialog.querySelector('#p2-service-title').textContent, '鉴定已完成');
+  assert.equal(f.dialog.querySelector('.p2-sg-keepsake'), null);
+  assert.equal(f.dialog.querySelector('.p2-sg-source').textContent, 'AI 卡牌鉴定完成');
+  assert.equal(f.dialog.querySelector('.p2-sg-limit').textContent, '今日鉴定获券 10 / 10 张 · 已达上限');
+  assert.doesNotMatch(f.dialog.textContent, /已到账|到期|好运|收藏期待/);
+  assert.ok(f.dialog.querySelector('[data-p2-go]'));
+});
 
 test('all close and leave paths dismiss the one-off tenth-ticket sharing opportunity without changing earned tickets', () => {
   const endings = [
