@@ -1,0 +1,35 @@
+{
+  "generator": "Built-in Codex image_gen; deterministic typography and export via @napi-rs/canvas",
+  "title": "海贼EB05卡牌免费抽卡活动",
+  "button": "立即参与",
+  "textBounds": [
+    {
+      "text": "海贼EB05卡牌",
+      "x": 36,
+      "width": 208.89999389648438
+    },
+    {
+      "text": "免费抽卡活动",
+      "x": 36,
+      "width": 216
+    }
+  ],
+  "exports": [
+    {
+      "file": "eb05-home-banner-678x214.png",
+      "width": 678,
+      "height": 214,
+      "radius": 26,
+      "sha256": "9d5f1241488e7f00510c20b266b70b2c1b25c3a8be8afe6d411cbe705062a1c8"
+    },
+    {
+      "file": "eb05-home-banner-1356x428.png",
+      "width": 1356,
+      "height": 428,
+      "radius": 52,
+      "sha256": "875be2041abdb083dd06d6df0c13191a4c88c4fb147f4c10e48a2f7569e13615"
+    }
+  ],
+  "artSourceSha256": "2a080595519eb68cc0da232e33029d40c5f7271737c3efb6d4c640c4c8dab742",
+  "scope": "Design asset only; no homepage replacement or deployment."
+}

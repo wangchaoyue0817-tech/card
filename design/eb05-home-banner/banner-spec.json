@@ -1,0 +1,17 @@
+{
+  "title": "海贼EB05卡牌免费抽卡活动",
+  "titleLines": ["海贼EB05卡牌", "免费抽卡活动"],
+  "button": "立即参与",
+  "width": 678,
+  "height": 214,
+  "radius": 26,
+  "fontFamily": "PingFang SC",
+  "textSafeArea": {"x": 36, "y": 30, "width": 310, "height": 164},
+  "titleBaselines": [66, 111],
+  "titleSizes": [32, 36],
+  "buttonBounds": {"x": 36, "y": 146, "width": 166, "height": 44, "radius": 22},
+  "buttonFontSize": 22,
+  "palette": {"text": "#F6F1FF", "emphasis": "#E1D8FF", "buttonStart": "#596BF6", "buttonEnd": "#9358E8"},
+  "outputFiles": ["eb05-home-banner-678x214.png", "eb05-home-banner-1356x428.png"],
+  "scope": "Design asset only; no homepage replacement or deployment."
+}
